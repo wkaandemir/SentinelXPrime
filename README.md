@@ -43,12 +43,13 @@ Crypto-sensitive discussions should cross-check [`skills/shared/crypto-guidance.
 
 ## Installation
 
-| Platform | Status | Entry Point |
+| Platform | Route | Entry Point |
 | --- | --- | --- |
-| Codex | Supported | [`.codex/INSTALL.md`](.codex/INSTALL.md) and [`docs/README.codex.md`](docs/README.codex.md) |
-| Claude Code | Supported | [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and [`docs/README.claude.md`](docs/README.claude.md) |
+| Codex | Native skill discovery (`.agents/skills/`) | [`.codex/INSTALL.md`](.codex/INSTALL.md) and [`docs/README.codex.md`](docs/README.codex.md) |
+| Claude Code | Route A — Plugin (`/plugin`, includes SessionStart hook) | [`.claude-plugin/INSTALL.md`](.claude-plugin/INSTALL.md) and [`docs/README.claude.md`](docs/README.claude.md) |
+| Claude Code | Route B — Plain skill auto-discovery (`.claude/skills/`) | [`.claude-plugin/INSTALL.md`](.claude-plugin/INSTALL.md) and [`docs/README.claude.md`](docs/README.claude.md) |
 
-Supported means the repository ships a documented install surface that exists in this repo.
+Each row is a real install surface that ships in this repo. Route A and Route B for Claude Code are interchangeable — pick the one that matches your Claude Code surface. `kurulum.md` automatically detects `/plugin` support and falls back to Route B when needed.
 
 Current release or handoff claims for Codex and Claude Code should be backed by recorded smoke evidence in [`docs/validation/release-readiness.md`](docs/validation/release-readiness.md).
 Use `node scripts/check-release-readiness.mjs` or the `Release Claim Readiness` workflow before making an external release-ready or handoff claim.
