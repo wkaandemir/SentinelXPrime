@@ -41,4 +41,3 @@ Pull the clone you installed from, then restart Codex.
 ## Troubleshooting
 
 - If a skill is missing, make sure both the skill directory and `shared` were linked.
-- If old prompt names fail, use the new names from [`migration-from-codex-sentinel.md`](migration-from-codex-sentinel.md).

@@ -1,8 +1,8 @@
 # SentinelXPrime
 
-> Stage-aware security skills for Codex, Claude Code, and OpenCode, with explicit compatibility guidance for Cursor and Kilo.
+> Stage-aware security skills for Codex and Claude Code.
 
-[![Support Surface](https://img.shields.io/badge/Support-Codex%20%7C%20Claude%20Code%20%7C%20OpenCode-111111?style=flat)](#installation)
+[![Support Surface](https://img.shields.io/badge/Support-Codex%20%7C%20Claude%20Code-111111?style=flat)](#installation)
 [![Validation](https://img.shields.io/badge/Validation-static%20%2B%20evals-2ea043?style=flat)](#validation-and-release)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat)](LICENSE)
 [![Stacks](https://img.shields.io/badge/Stacks-ASP.NET%20Core%20%7C%20Spring%20%7C%20Node%20%7C%20Python%20%7C%20Go%20%7C%20Rails%20%7C%20Laravel%20%7C%20Rust-1f6feb?style=flat)](#supported-stacks)
@@ -47,13 +47,10 @@ Crypto-sensitive discussions should cross-check [`skills/shared/crypto-guidance.
 | --- | --- | --- |
 | Codex | Supported | [`.codex/INSTALL.md`](.codex/INSTALL.md) and [`docs/README.codex.md`](docs/README.codex.md) |
 | Claude Code | Supported | [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and [`docs/README.claude.md`](docs/README.claude.md) |
-| OpenCode | Supported | [`.opencode/INSTALL.md`](.opencode/INSTALL.md) and [`docs/README.opencode.md`](docs/README.opencode.md) |
-| Cursor | Compatibility guidance | [`docs/README.cursor.md`](docs/README.cursor.md) |
-| Kilo | Compatibility guidance | [`docs/README.kilo.md`](docs/README.kilo.md) |
 
-Supported means the repository ships a documented install surface that exists in this repo. Compatibility guidance means the repo documents a low-risk way to reuse the instructions and skills without claiming an officially validated plugin path.
+Supported means the repository ships a documented install surface that exists in this repo.
 
-Current release or handoff claims for Codex, Claude Code, and OpenCode should be backed by recorded smoke evidence in [`docs/validation/release-readiness.md`](docs/validation/release-readiness.md).
+Current release or handoff claims for Codex and Claude Code should be backed by recorded smoke evidence in [`docs/validation/release-readiness.md`](docs/validation/release-readiness.md).
 Use `node scripts/check-release-readiness.mjs` or the `Release Claim Readiness` workflow before making an external release-ready or handoff claim.
 
 ## Repository Status
@@ -105,15 +102,12 @@ More examples live in [`docs/examples/example-prompts.md`](docs/examples/example
 
 - Codex: update the clone used by your install doc, then restart Codex
 - Claude Code: update the plugin clone and restart the session
-- OpenCode: update the clone or project copy used by your install path, then restart OpenCode
-- Cursor and Kilo: refresh any copied docs or rules material from this repo
 - See [CHANGELOG.md](CHANGELOG.md) for notable repository changes.
 
 ## Troubleshooting
 
 - Skills not showing up: confirm the platform-specific install doc was followed exactly and start a fresh session.
 - Hook context missing in Claude Code: verify [`hooks/hooks.json`](hooks/hooks.json) and [`hooks/session-start`](hooks/session-start) are present in the plugin root.
-- Legacy prompt names failing: use the migration guide at [`docs/migration-from-codex-sentinel.md`](docs/migration-from-codex-sentinel.md). This repo does not ship old-name aliases.
 - Release packaging issues: build from the SentinelXPrime repo root only, not from a wrapper workspace or nested copy.
 
 ## Validation And Release
@@ -152,10 +146,6 @@ node scripts/check-release-readiness.mjs
 Build release archives only from a clean SentinelXPrime repo root. Do not package from wrapper workspaces, nested source trees, or Finder/manual zips.
 
 Treat `scripts/package-release.sh` as the canonical release archive flow. Finder/manual zip output is not a supported release artifact.
-
-## Migration
-
-See [`docs/migration-from-codex-sentinel.md`](docs/migration-from-codex-sentinel.md) for renamed skills, command changes, archive/env var updates, and breaking changes.
 
 ## License
 

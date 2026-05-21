@@ -42,7 +42,6 @@ test("fails claim readiness when a required surface has no pass row", () => {
         "| --- | --- | --- | --- | --- | --- | --- |",
         `| Codex | macOS | user-scoped | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         `| Claude Code | macOS | local plugin | smoke | blocked | ${isoDateDaysAgo(0)} | missing runtime |`,
-        `| OpenCode | macOS | personal | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         "",
       ].join("\n"),
       "utf8"
@@ -58,7 +57,7 @@ test("fails claim readiness when a required surface has no pass row", () => {
   }
 });
 
-test("passes claim readiness when Codex, Claude Code, and OpenCode each have a pass row", () => {
+test("passes claim readiness when Codex and Claude Code each have a pass row", () => {
   const tempRepo = createTempRepo("sentinelx-prime-readiness-pass-");
 
   try {
@@ -71,7 +70,6 @@ test("passes claim readiness when Codex, Claude Code, and OpenCode each have a p
         "| --- | --- | --- | --- | --- | --- | --- |",
         `| Codex | macOS | user-scoped | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         `| Claude Code | macOS | local plugin | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
-        `| OpenCode | macOS | personal | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         "",
       ].join("\n"),
       "utf8"
@@ -104,10 +102,12 @@ test("fails cleanly when the release-readiness path is a directory", () => {
 test("fails cleanly when the release-readiness file cannot be read", (t) => {
   const tempRepo = createTempRepo("sentinelx-prime-readiness-permissions-");
   const readinessPath = path.join(tempRepo, "docs", "validation", "release-readiness.md");
+  let permissionsChanged = false;
 
   try {
-    if (process.getuid?.() === 0) {
-      t.skip("root can still read chmod 000 files");
+    if (process.platform === "win32" || process.getuid?.() === 0) {
+      t.skip("chmod 000 does not make this file unreadable in the current runtime");
+      return;
     }
 
     writeFileSync(
@@ -119,12 +119,12 @@ test("fails cleanly when the release-readiness file cannot be read", (t) => {
         "| --- | --- | --- | --- | --- | --- | --- |",
         `| Codex | macOS | user-scoped | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         `| Claude Code | macOS | local plugin | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
-        `| OpenCode | macOS | personal | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         "",
       ].join("\n"),
       "utf8"
     );
     chmodSync(readinessPath, 0o000);
+    permissionsChanged = true;
 
     const result = runCheck(tempRepo);
 
@@ -132,7 +132,9 @@ test("fails cleanly when the release-readiness file cannot be read", (t) => {
     assert.match(result.stderr, /^unable to read release-readiness file /m);
     assert.match(result.stderr, /release-readiness\.md/);
   } finally {
-    chmodSync(readinessPath, 0o644);
+    if (permissionsChanged) {
+      chmodSync(readinessPath, 0o644);
+    }
     rmSync(tempRepo, { recursive: true, force: true });
   }
 });
@@ -150,7 +152,6 @@ test("ignores fake pass rows inside fenced code blocks", () => {
         "| --- | --- | --- | --- | --- | --- | --- |",
         `| Codex | macOS | user-scoped | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         `| Claude Code | macOS | local plugin | smoke | blocked | ${isoDateDaysAgo(0)} | missing runtime |`,
-        `| OpenCode | macOS | personal | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         "",
         "```md",
         "| Claude Code | fakeOS | fake-install | fake-proof | pass | 2026-04-04 | injected |",
@@ -183,7 +184,6 @@ test("ignores fake pass rows in secondary markdown tables", () => {
         "| --- | --- | --- | --- | --- | --- | --- |",
         `| Codex | macOS | user-scoped | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         `| Claude Code | macOS | local plugin | smoke | blocked | ${isoDateDaysAgo(0)} | missing runtime |`,
-        `| OpenCode | macOS | personal | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         "",
         "## Example Table",
         "",
@@ -218,7 +218,6 @@ test("fails claim readiness when a required surface only has stale pass evidence
         "| --- | --- | --- | --- | --- | --- | --- |",
         `| Codex | macOS | user-scoped | smoke | pass | ${isoDateDaysAgo(120)} | stale |`,
         `| Claude Code | macOS | local plugin | smoke | pass | ${isoDateDaysAgo(120)} | stale |`,
-        `| OpenCode | macOS | personal | smoke | pass | ${isoDateDaysAgo(120)} | stale |`,
         "",
       ].join("\n"),
       "utf8"
@@ -246,7 +245,6 @@ test("fails claim readiness when a pass row has an invalid verification date", (
         "| --- | --- | --- | --- | --- | --- | --- |",
         "| Codex | macOS | user-scoped | smoke | pass | not-a-date | invalid |",
         `| Claude Code | macOS | local plugin | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
-        `| OpenCode | macOS | personal | smoke | pass | ${isoDateDaysAgo(0)} | ok |`,
         "",
       ].join("\n"),
       "utf8"

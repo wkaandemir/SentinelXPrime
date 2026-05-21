@@ -59,7 +59,7 @@ for (const entry of readdirSync(skillsRoot, { withFileTypes: true })) {
   }
 
   const content = readFileSync(skillFile, "utf8");
-  const match = content.match(/^---\n([\s\S]*?)\n---\n/);
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
   if (!match) {
     issues.push(`missing frontmatter in skills/${entry.name}/SKILL.md`);
     continue;

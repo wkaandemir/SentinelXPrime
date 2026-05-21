@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-const requiredSurfaces = ["Codex", "Claude Code", "OpenCode"];
+const requiredSurfaces = ["Codex", "Claude Code"];
 const maxPassAgeDays = 90;
 const millisecondsPerDay = 24 * 60 * 60 * 1000;
 const canonicalHeader = [

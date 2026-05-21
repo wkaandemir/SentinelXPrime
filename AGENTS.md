@@ -1,7 +1,7 @@
 # SentinelXPrime
 
 ## Purpose
-This repository contains a stage-aware cybersecurity skill suite for Codex, Claude Code, and OpenCode, plus compatibility guidance for Cursor and Kilo.
+This repository contains a stage-aware cybersecurity skill suite for Codex and Claude Code.
 
 ## Required Checkpoints
 - Planning checkpoint: before locking a plan, task list, or architecture, run a security gap analysis.

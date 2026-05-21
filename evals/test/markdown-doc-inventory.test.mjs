@@ -15,7 +15,6 @@ test("collects root markdown plus recursive docs install surfaces without duplic
   try {
     mkdirSync(path.join(tempRepo, "docs", "validation"), { recursive: true });
     mkdirSync(path.join(tempRepo, ".codex"), { recursive: true });
-    mkdirSync(path.join(tempRepo, ".opencode"), { recursive: true });
     mkdirSync(path.join(tempRepo, "evals"), { recursive: true });
 
     writeFileSync(path.join(tempRepo, "README.md"), "# Readme\n", "utf8");
@@ -24,14 +23,12 @@ test("collects root markdown plus recursive docs install surfaces without duplic
     writeFileSync(path.join(tempRepo, "notes.txt"), "ignore\n", "utf8");
     writeFileSync(path.join(tempRepo, "docs", "validation", "release-readiness.md"), "# Readiness\n", "utf8");
     writeFileSync(path.join(tempRepo, ".codex", "INSTALL.md"), "# Install\n", "utf8");
-    writeFileSync(path.join(tempRepo, ".opencode", "INSTALL.md"), "# Install\n", "utf8");
     writeFileSync(path.join(tempRepo, "evals", "README.md"), "# Evals\n", "utf8");
 
     const docs = collectMarkdownDocs(tempRepo);
 
     assert.deepEqual(docs, [
       ".codex/INSTALL.md",
-      ".opencode/INSTALL.md",
       "CHANGELOG.md",
       "README.md",
       "SECURITY.md",

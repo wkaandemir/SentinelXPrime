@@ -1,6 +1,10 @@
 import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 
+function toPosixPath(relativePath) {
+  return relativePath.split(path.sep).join("/");
+}
+
 function collectMarkdownFiles(repoRoot, relativeDir) {
   const absoluteDir = path.join(repoRoot, relativeDir);
   if (!existsSync(absoluteDir)) {
@@ -17,7 +21,7 @@ function collectMarkdownFiles(repoRoot, relativeDir) {
     }
 
     if (entry.isFile() && entry.name.endsWith(".md")) {
-      collected.push(relativePath);
+      collected.push(toPosixPath(relativePath));
     }
   }
 
@@ -31,9 +35,8 @@ export function collectMarkdownDocs(repoRoot) {
 
   return [...new Set([
     ...rootMarkdownFiles,
-    ...(existsSync(path.join(repoRoot, "evals", "README.md")) ? [path.join("evals", "README.md")] : []),
+    ...(existsSync(path.join(repoRoot, "evals", "README.md")) ? ["evals/README.md"] : []),
     ...collectMarkdownFiles(repoRoot, ".codex"),
-    ...collectMarkdownFiles(repoRoot, ".opencode"),
     ...collectMarkdownFiles(repoRoot, "docs"),
   ])].sort();
 }

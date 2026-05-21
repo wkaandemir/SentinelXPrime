@@ -7,7 +7,6 @@ const repoRoot = resolveFromImportMetaUrl(import.meta.url, "..");
 const canonicalRepoUrl = "https://github.com/alicankiraz1/SentinelXPrime.git";
 const installDocsRequiringCanonicalCloneUrl = new Set([
   ".codex/INSTALL.md",
-  ".opencode/INSTALL.md",
   "docs/README.claude.md",
   "docs/README.codex.md",
 ]);

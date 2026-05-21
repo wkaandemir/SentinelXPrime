@@ -153,7 +153,7 @@ function validateSkillFrontmatter() {
 
   for (const filePath of skillFiles) {
     const content = readFileSync(filePath, "utf8");
-    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n/);
+    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
     if (!frontmatterMatch) {
       issues.push(`${path.relative(repoRoot, filePath)} -> missing frontmatter block`);
       continue;

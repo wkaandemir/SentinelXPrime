@@ -12,8 +12,7 @@
     "security",
     "skills",
     "codex",
-    "claude-code",
-    "opencode"
+    "claude-code"
   ],
   "skills": "./skills/"
 }
