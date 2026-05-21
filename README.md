@@ -1,26 +1,26 @@
 # SentinelXPrime
 
-> Codex ve Claude Code icin asama farkindaligi olan guvenlik skill paketi.
+> Stage-aware security skills for Codex and Claude Code.
 
-[![Destek Yuzeyi](https://img.shields.io/badge/Support-Codex%20%7C%20Claude%20Code-111111?style=flat)](#kurulum)
-[![Dogrulama](https://img.shields.io/badge/Validation-static%20%2B%20evals-2ea043?style=flat)](#dogrulama-ve-release)
-[![Lisans: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat)](LICENSE)
-[![Stackler](https://img.shields.io/badge/Stacks-ASP.NET%20Core%20%7C%20Spring%20%7C%20Node%20%7C%20Python%20%7C%20Go%20%7C%20Rails%20%7C%20Laravel%20%7C%20Rust-1f6feb?style=flat)](#desteklenen-stackler)
+[![Support Surface](https://img.shields.io/badge/Support-Codex%20%7C%20Claude%20Code-111111?style=flat)](#installation)
+[![Validation](https://img.shields.io/badge/Validation-static%20%2B%20evals-2ea043?style=flat)](#validation-and-release)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat)](LICENSE)
+[![Stacks](https://img.shields.io/badge/Stacks-ASP.NET%20Core%20%7C%20Spring%20%7C%20Node%20%7C%20Python%20%7C%20Go%20%7C%20Rails%20%7C%20Laravel%20%7C%20Rust-1f6feb?style=flat)](#supported-stacks)
 
-SentinelXPrime, ekiplerin planlama sirasinda eksik guvenlik gereksinimlerini yakalamasina, riskli implementasyon islerinde kapsamli ama dusuk gurultulu uyarilar almasina, kodlama bittikten sonra istege bagli review destegi istemesine ve release oncesinde pratik bir guvenlik kontrol plani cikarmasina yardim eder.
+SentinelXPrime helps teams catch missing security requirements during planning, surface scoped concerns during risky implementation work, offer opt-in review help after coding, and propose a practical security check plan before release.
 
-Bu paket varsayilan olarak danismanlik odaklidir. Sinyali ve tutarliligi artirir; bir repository'nin guvenli, tamamen incelenmis veya uretime hazir oldugunu belgelemez.
+The suite is advisory-first. It improves signal and consistency, but it does not certify a repository as secure, fully reviewed, or production-ready.
 
-## Nasil Calisir
+## How It Works
 
-1. Planlama asamasi: `sentinelx-plan-gap`
-2. Riskli implementasyon asamasi: `sentinelx-prime`
-3. Implementasyon sonrasi review asamasi: `sentinelx-review-gate`
-4. Release oncesi hardening asamasi: `sentinelx-test-rig`
+1. Planning stage: `sentinelx-plan-gap`
+2. Risky implementation stage: `sentinelx-prime`
+3. Post-implementation review stage: `sentinelx-review-gate`
+4. Pre-release hardening stage: `sentinelx-test-rig`
 
-Bir oturumda pakete hizli yonelim gerekiyorsa hafif bootstrap skill'i olarak `using-sentinelx` kullanilir.
+Use `using-sentinelx` as the lightweight bootstrap skill when a session needs quick orientation to the suite.
 
-## Desteklenen Stackler
+## Supported Stacks
 
 - `.NET / ASP.NET Core`
 - `Java / Spring`
@@ -31,95 +31,96 @@ Bir oturumda pakete hizli yonelim gerekiyorsa hafif bootstrap skill'i olarak `us
 - `PHP / Laravel`
 - `Rust`
 
-Stack net degilse SentinelXPrime ortak web guvenligi rehberligine duser ve stack cikariminin belirsiz oldugunu soyler.
+If the stack is unclear, SentinelXPrime falls back to common web-security guidance and says that the stack inference is uncertain.
 
-Kriptoya duyarlı konularda [`skills/shared/crypto-guidance.md`](skills/shared/crypto-guidance.md) kontrol edilmelidir.
+Crypto-sensitive discussions should cross-check [`skills/shared/crypto-guidance.md`](skills/shared/crypto-guidance.md).
 
-## Asama Karar Yardimi
+## Stage Decision Aid
 
-- Kod tamamlandiysa ve siradaki soru "bu implementasyon yeterince guvenli mi?" ise `sentinelx-review-gate` kullan.
-- Siradaki adim release veya handoff hardening ise `sentinelx-test-rig` kullan.
-- Asama kaniti zayif ya da celiskiliyse `uncertain` modunda kal ve asama netlesene kadar rehberligi danismanlik seviyesinde tut.
+- If the code is done and the next question is "is this implementation safe enough?", use `sentinelx-review-gate`.
+- If the next step is release or handoff hardening, use `sentinelx-test-rig`.
+- If the stage evidence is weak or contradictory, stay in `uncertain` mode and keep the guidance advisory until the stage becomes clearer.
 
-## Kurulum
+## Installation
 
-| Platform | Durum | Giris Noktasi |
+| Platform | Status | Entry Point |
 | --- | --- | --- |
-| Codex | Destekleniyor | [`.codex/INSTALL.md`](.codex/INSTALL.md) ve [`docs/README.codex.md`](docs/README.codex.md) |
-| Claude Code | Destekleniyor | [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) ve [`docs/README.claude.md`](docs/README.claude.md) |
+| Codex | Supported | [`.codex/INSTALL.md`](.codex/INSTALL.md) and [`docs/README.codex.md`](docs/README.codex.md) |
+| Claude Code | Supported | [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and [`docs/README.claude.md`](docs/README.claude.md) |
 
-Destekleniyor ifadesi, repository icinde belgelenmis ve var olan bir kurulum yuzeyi oldugu anlamina gelir.
+Supported means the repository ships a documented install surface that exists in this repo.
 
-Codex ve Claude Code icin guncel release veya handoff iddialari [`docs/validation/release-readiness.md`](docs/validation/release-readiness.md) icindeki kayitli smoke kanitlariyla desteklenmelidir.
-Harici release-ready veya handoff iddiasi yapmadan once `node scripts/check-release-readiness.mjs` ya da `Release Claim Readiness` workflow'u calistirilmalidir.
+Current release or handoff claims for Codex and Claude Code should be backed by recorded smoke evidence in [`docs/validation/release-readiness.md`](docs/validation/release-readiness.md).
+Use `node scripts/check-release-readiness.mjs` or the `Release Claim Readiness` workflow before making an external release-ready or handoff claim.
 
-## Repository Durumu
+## Repository Status
 
-- Paketleme, kurulum dokumanlari ve validator kapsami private collaborator review icin iyi durumdadir.
-- `bash scripts/static-validation.sh`, Node.js 22 + Ruby ortamina sahip sistemlerde gecmelidir.
-- `node scripts/check-release-readiness.mjs`, Claude Code icin henuz taze ve authenticated runtime `pass` satiri olmadigi icin basarisiz kalir.
-- Bu kanit eklenene kadar repository'yi private review icin dogrulanmis olarak tanimla; release-ready veya handoff-ready olarak tanimlama.
+- Packaging, installation docs, and validator coverage are in good shape for private collaborator review.
+- `bash scripts/static-validation.sh` is expected to pass in a Node.js 22 + Ruby environment.
+- `node scripts/check-release-readiness.mjs` still fails because Claude Code does not yet have a fresh authenticated runtime `pass` row in the readiness matrix.
+- Until that evidence exists, describe the repo as validated for private review, not as fully release-ready or handoff-ready.
 
-Bu snapshot'taki son guncellemeler:
+Latest updates in this snapshot:
 
-- Desteklenen platform yuzeyi Codex ve Claude Code ile sinirlandi.
-- Codex/Claude disi kurulum rehberleri repository-facing dokumanlardan kaldirildi.
-- Release-readiness kapisi ve dokuman envanteri kontrolleri iki platformlu destek yuzeyine gore guncellendi.
+- Share-facing root reports are now English-only and canonicalized as `cross-validation-report-2026-04-04.md` and `phased-remediation-plan-2026-04-04.md`.
+- The release-readiness claim gate now accepts only the canonical readiness matrix and enforces current-pass freshness checks.
+- Doc validators now cover root markdown files, reject repository-escape local links, and keep the markdown inventory contract centralized.
+- Legacy-name validation and related regression coverage were hardened to fail on actionable lint instead of uncaught stack traces.
 
-## Kurulumu Dogrulama
+## Verify Installation
 
-Yeni bir oturum baslat ve su promptlardan birini dene:
+Start a fresh session and try one of these prompts:
 
 - `Use $sentinelx-prime while we plan this new ASP.NET Core feature.`
 - `Use $sentinelx-plan-gap to review this Node/TypeScript API design for missing security requirements.`
 - `Use $sentinelx-review-gate to run a focused security review on the completed auth changes.`
 - `Use $sentinelx-test-rig to propose a stack-aware security check plan for this release handoff.`
 
-Daha fazla ornek [`docs/examples/example-prompts.md`](docs/examples/example-prompts.md) icinde bulunur.
+More examples live in [`docs/examples/example-prompts.md`](docs/examples/example-prompts.md).
 
-## Icerik
+## What's Inside
 
-| Skill | Amac |
+| Skill | Purpose |
 | --- | --- |
-| `using-sentinelx` | Hafif bootstrap ve yonelim skill'i |
-| `sentinelx-prime` | Asama farkindaligi olan guvenlik rehberligi orkestratoru |
-| `sentinelx-plan-gap` | Planlama asamasi guvenlik boslugu analizi |
-| `sentinelx-review-gate` | Istege bagli implementasyon sonrasi guvenlik review'u |
-| `sentinelx-test-rig` | Release oncesi istege bagli guvenlik test/kontrol plani |
-| `shared/*` | Ortak tehdit referanslari, finding semasi ve stack profilleri |
+| `using-sentinelx` | Lightweight bootstrap and orientation skill |
+| `sentinelx-prime` | Orchestrator for stage-aware security guidance |
+| `sentinelx-plan-gap` | Planning-stage security gap analysis |
+| `sentinelx-review-gate` | Opt-in post-implementation security review |
+| `sentinelx-test-rig` | Opt-in security test/check planning before release |
+| `shared/*` | Common threat references, finding schema, and stack profiles |
 
-## Felsefe / Guvenlik Modeli
+## Philosophy / Safety Model
 
-- varsayilan olarak danismanlik odakli
-- yanlis guvence yok
-- sessiz kurulum yok
-- gizli mutasyon yok
-- read-only aktif analiz yalnizca acik kullanici onayindan sonra
-- kapsamli raporlar incelenen alanlari, incelenmeyen alanlari, varsayimlari ve calistirilan araclari ayirir
+- advisory-first by default
+- no false assurance
+- no silent installs
+- no hidden mutation
+- read-only active analysis only after explicit user consent
+- substantial outputs separate reviewed areas, unreviewed areas, assumptions, and tools run
 
-## Guncelleme
+## Updating
 
-- Codex: kurulum dokumaninda kullandigin clone'u guncelle, sonra Codex'i yeniden baslat
-- Claude Code: plugin clone'unu guncelle ve oturumu yeniden baslat
-- Onemli repository degisiklikleri icin [CHANGELOG.md](CHANGELOG.md) dosyasina bak
+- Codex: update the clone used by your install doc, then restart Codex
+- Claude Code: update the plugin clone and restart the session
+- See [CHANGELOG.md](CHANGELOG.md) for notable repository changes.
 
-## Sorun Giderme
+## Troubleshooting
 
-- Skill'ler gorunmuyorsa platforma ozel kurulum dokumaninin aynen takip edildigini kontrol et ve yeni bir oturum baslat.
-- Claude Code hook context eksikse plugin root icinde [`hooks/hooks.json`](hooks/hooks.json) ve [`hooks/session-start`](hooks/session-start) dosyalarinin varligini dogrula.
-- Release paketleme sorunu varsa SentinelXPrime repo kokunden build al; wrapper workspace, nested source tree veya manuel zip kullanma.
+- Skills not showing up: confirm the platform-specific install doc was followed exactly and start a fresh session.
+- Hook context missing in Claude Code: verify [`hooks/hooks.json`](hooks/hooks.json) and [`hooks/session-start`](hooks/session-start) are present in the plugin root.
+- Release packaging issues: build from the SentinelXPrime repo root only, not from a wrapper workspace or nested copy.
 
-## Dogrulama Ve Release
+## Validation And Release
 
-Dogrulama gereksinimleri:
+Validation prerequisites:
 
 - Node.js 22
-- `scripts/static-validation.sh` icin Ruby
-- Live eval calismalari icin `PATH` uzerinde `codex` CLI
-- Live eval calismalari icin `$CODEX_HOME/auth.json` veya `~/.codex/auth.json` konumunda okunabilir Codex auth
-- Release paketleme ve arsiv dogrulamasi icin `unzip` ve `zip` ya da `ditto`
+- Ruby available for `scripts/static-validation.sh`
+- `codex` CLI on `PATH` for live eval runs
+- readable Codex auth at `$CODEX_HOME/auth.json` or `~/.codex/auth.json` for live eval runs
+- `unzip` plus either `zip` or `ditto` for release packaging and archive verification
 
-Onerilen yerel dogrulama:
+Recommended local verification:
 
 ```bash
 bash scripts/static-validation.sh
@@ -132,7 +133,7 @@ node scripts/check-doc-links.mjs
 node scripts/check-legacy-names.mjs
 ```
 
-Public release akisi:
+Public release flow:
 
 ```bash
 bash scripts/package-release.sh
@@ -142,10 +143,10 @@ node scripts/verify-release-archive.mjs dist/SentinelXPrime-fallback.zip
 node scripts/check-release-readiness.mjs
 ```
 
-Release arsivlerini yalnizca temiz bir SentinelXPrime repo kokunden olustur. Wrapper workspace, nested source tree veya Finder/manual zip ile paketleme yapma.
+Build release archives only from a clean SentinelXPrime repo root. Do not package from wrapper workspaces, nested source trees, or Finder/manual zips.
 
-`scripts/package-release.sh` canonical release arsiv akisidir. Finder/manual zip ciktilari desteklenen release artifact'i degildir.
+Treat `scripts/package-release.sh` as the canonical release archive flow. Finder/manual zip output is not a supported release artifact.
 
-## Lisans
+## License
 
-MIT. Ayrinti icin [LICENSE](LICENSE) dosyasina bak.
+MIT. See [LICENSE](LICENSE).
